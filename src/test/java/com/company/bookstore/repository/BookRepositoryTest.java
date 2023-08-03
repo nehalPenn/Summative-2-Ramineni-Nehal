@@ -66,7 +66,7 @@ class BookRepositoryTest {
         book.setPrice(12);
         book.setAuthorId(author.getId());
         book.setPublisherId(publisher.getId());
-        book.setPublishDate(LocalDate.of(2010,1,5));
+        book.setPublishDate("LocalDate.of(2010,1,5)");
 
         //Act...
         book = bookRepository.save(book);
@@ -105,7 +105,7 @@ class BookRepositoryTest {
         book.setPrice(12);
         book.setAuthorId(author.getId());
         book.setPublisherId(publisher.getId());
-        book.setPublishDate(LocalDate.of(2010,1,5));
+        book.setPublishDate("LocalDate.of(2010,1,5)");
 
         //Act...
         book = bookRepository.save(book);
@@ -151,7 +151,7 @@ class BookRepositoryTest {
         book.setPrice(12);
         book.setAuthorId(author.getId());
         book.setPublisherId(publisher.getId());
-        book.setPublishDate(LocalDate.of(2010,1,5));
+        book.setPublishDate("LocalDate.of(2010,1,5)");
 
         //Act...
         book = bookRepository.save(book);
@@ -200,7 +200,7 @@ class BookRepositoryTest {
         book.setPrice(12);
         book.setAuthorId(author.getId());
         book.setPublisherId(publisher.getId());
-        book.setPublishDate(LocalDate.of(2010,1,5));
+        book.setPublishDate("LocalDate.of(2010,1,5)");
 
         //Act...
         book = bookRepository.save(book);
@@ -242,7 +242,7 @@ class BookRepositoryTest {
         book.setPrice(12);
         book.setAuthorId(author.getId());
         book.setPublisherId(publisher.getId());
-        book.setPublishDate(LocalDate.of(2010,1,5));
+        book.setPublishDate("LocalDate.of(2010,1,5)");
 
         //Act...
         book = bookRepository.save(book);
@@ -273,7 +273,7 @@ class BookRepositoryTest {
         book.setPrice(12);
         book.setAuthorId(author.getId());
         book.setPublisherId(publisher.getId());
-        book.setPublishDate(LocalDate.of(2010,1,5));
+        book.setPublishDate("LocalDate.of(2010,1,5)");
 
         //Act...
         book = bookRepository.save(book);
@@ -315,7 +315,7 @@ class BookRepositoryTest {
         book.setPrice(12);
         book.setAuthorId(author.getId());
         book.setPublisherId(publisher.getId());
-        book.setPublishDate(LocalDate.of(2010,1,5));
+        book.setPublishDate("LocalDate.of(2010,1,5)");
 
         //Act...
         book = bookRepository.save(book);

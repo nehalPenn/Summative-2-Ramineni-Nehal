@@ -17,7 +17,7 @@ public class Book {
     private int id;
 
     private String isbn;
-    private LocalDate publishDate;
+    private String publishDate;
 
     @Column(name = "author_id")
     private int authorId;
@@ -43,11 +43,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public LocalDate getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(LocalDate publishDate) {
+    public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
 
