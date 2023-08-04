@@ -6,6 +6,7 @@ type Author {
     city: String!
     state: String!
     postalCode: String!
+    books: [Book]
 }
 
 type Publisher {
@@ -17,6 +18,7 @@ type Publisher {
     postalCode: String!
     phone: String!
     email: String!
+    books: [Book]
 
 }
 
@@ -35,6 +37,6 @@ type Query {
     findAuthorById(id:ID!): Author
     findPublisherById(id:ID!): Publisher
     findBookById(id:ID!): Book
-    findMotorcycleById(id:ID!): Author
+
 
 }
