@@ -1,105 +1,159 @@
 package com.company.bookstore.controller;
 
-import com.company.bookstore.model.Author;
-import com.company.bookstore.model.Book;
-import com.company.bookstore.repository.AuthorRepository;
-import com.company.bookstore.repository.BookRepository;
-import com.company.bookstore.repository.PublisherRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
+import com.company.bookstore.model.Publisher;
+import com.company.bookstore.repository.PublisherRepository;
+import org.junit.jupiter.api.Test;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(AuthorController.class)
-public class AuthorControllerTest {
-    private ObjectMapper mapper = new ObjectMapper();
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.MediaType;
+
+import java.util.List;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+@WebMvcTest(PublisherController.class)
+public class PublisherControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    private List<Book> bookList;
 
     @MockBean
-    private BookRepository bookRepository;
+    private PublisherRepository repo;
 
-    @MockBean
-    private AuthorRepository authorRepository;
-
-    @MockBean
-    private PublisherRepository publisherRepository;
-
-    @Test
-    public void shouldReturnAuthor() throws Exception {
-
-        Author author = new Author();
-        author.setFirstName("mordi");
-        author.setLastName("Manny");
-        author.setStreet("7th St");
-        author.setCity("New York City");
-        author.setState("");
-        author.setEmail("mordi@gmail");
+    // ObjectMapper used to convert Java objects to JSON and vice versa
 
 
-        String inputJson = mapper.writeValueAsString(author);
+    private ObjectMapper mapper = new ObjectMapper();
+    // A list of customers for testing purposes
 
-        Author author2 = new Author();
-        author2.setFirstName("mordi");
-        author2.setLastName("Manny");
-        author2.setStreet("7th St");
-        author2.setCity("New York City");
-        author2.setState("");
-        author2.setEmail("mordi@gmail");
+    @BeforeEach
+    public void setUp() throws Exception {
+        Publisher pub = new Publisher();
+        pub.setName("OVO Prod");
+        pub.setStreet("27 King Way");
+        pub.setCity("Seattle");
+        pub.setState("WA");
+        pub.setPostalCode("98109");pub.setEmail("ovo@gmail.com");
+        pub.setPhone("404-444-4444");
 
-        String outputJson = mapper.writeValueAsString(author2);
 
-        mockMvc.perform(post("/authors")
-                        .content(inputJson).contentType(MediaType.APPLICATION_JSON))
-                .andDo(print()).andExpect(status().isCreated());
+
+        // Convert Java Object to JSON
+        String inputJson = mapper.writeValueAsString(pub);
+
+        Publisher pub_o = new Publisher();
+        pub_o.setName("Donda Company");
+        pub_o.setStreet("123 Fly Way");
+        pub_o.setCity("Seattle");
+        pub_o.setState("WA");
+        pub_o.setPostalCode("98109");pub.setEmail("donda@gmail.com");
+        pub_o.setPhone("404-424-4444");
+
+
+        String outputJson = mapper.writeValueAsString(pub_o);
+
     }
+
+
+    private List<Publisher> publisherList;
     @Test
-    public void shouldReturnAuthorbyId() throws Exception {
-        mockMvc.perform(get("/authors/1"))
-                .andDo(print())
-                .andExpect(status().isOk());
+    public void shouldReturnAllPublishersInCollection() throws Exception {
+        String outputJson = mapper.writeValueAsString(publisherList);
+
+        // ACT
+        mockMvc.perform(get("/publisher"))                // Perform the GET request
+                .andDo(print())                          // Print results to console
+                .andExpect(status().isOk());              // ASSERT (status code is 200)
     }
-    @Test
-    public void shouldReturnAllAuthors() throws Exception {
 
-        mockMvc.perform(get("/authors")).andDo(print()).andExpect(status().isOk());
+
+    @Test
+    public void shouldReturnPublisherbyId() throws Exception {
+        String outputJson = mapper.writeValueAsString(publisherList);
+        mockMvc
+                .perform(get("/publisher/1"))
+                .andDo(print()).andExpect(status().isOk());
+
     }
+
     @Test
-    public void shouldUpdateAuthor() throws Exception {
+    public void shouldCreatePublisher() throws Exception {
+        Publisher pub = new Publisher();
+        pub.setName("Rocky Roads LLC");
+        pub.setStreet("451 Smith St");
+        pub.setCity("Seattle");
+        pub.setState("WA");
+        pub.setPostalCode("98109");
+        pub.setEmail("jim@gmail.com");
+        pub.setPhone("321-222-2222");
 
-        Author author = new Author();
-        author.setFirstName("mordi");
-        author.setLastName("Manny");
-        author.setStreet("7th St");
-        author.setCity("New York City");
-        author.setState("");
-        author.setEmail("mordi@gmail");
-        author.setId(1);
+        // Convert Java Object to JSON
+        String inputJson = mapper.writeValueAsString(pub);
 
-        String inputJson = mapper.writeValueAsString(author);
+        Publisher pub_o = new Publisher();
+        pub.setName("Jig Smooth Corp");
+        pub.setStreet("451 Smith St");
+        pub.setCity("Seattle");
+        pub.setState("WA");
+        pub.setPostalCode("98109");pub.setEmail("jil@gmail.com");
+        pub.setPhone("321-784-2222");
+
+        String outputJson = mapper.writeValueAsString(pub_o);
+        mockMvc.perform(
+                        post("/publisher")                            // Perform the POST request
+                                .content(inputJson)                       // Set the request body
+                                .contentType(MediaType.APPLICATION_JSON)  // Tell the server it's in JSON format
+                )
+                .andDo(print())                                // Print results to console
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void shouldUpdateExistingCustomer() throws Exception {
+        Publisher pub = new Publisher();
+        pub.setName("OVO Prod");
+        pub.setStreet("27 King Way");
+        pub.setCity("Seattle");
+        pub.setState("WA");
+        pub.setPostalCode("99099");pub.setEmail("ovo@gmail.com");
+        pub.setPhone("321-444-2222");
+
+
+
+        // Convert Java Object to JSON
+        String inputJson = mapper.writeValueAsString(pub);
+
+        Publisher pub_o = new Publisher();
+        pub_o.setName("Donda Company");
+        pub_o.setStreet("123 Fly Way");
+        pub_o.setCity("Seattle");
+        pub_o.setState("WA");
+        pub_o.setPostalCode("98109");pub.setEmail("donda@gmail.com");
+        pub_o.setPhone("321-424-2222");
+
+
+        String outputJson = mapper.writeValueAsString(pub_o);
 
         mockMvc.perform(
-                        put("/authors")
-                                .content(inputJson)
-                                .contentType(MediaType.APPLICATION_JSON)
+                        put("/publisher")                            // Perform the PUT request
+                                .content(inputJson)                       // Set the request body
+                                .contentType(MediaType.APPLICATION_JSON)  // Tell the server it's in JSON format
                 )
-                .andDo(print())
+                .andDo(print())                                // Print results to console
                 .andExpect(status().isNoContent());
     }
+
     @Test
-    public void shouldDeleteAuthorById() throws Exception {
-        mockMvc.perform(delete("/authors/1")).andDo(print()).andExpect(status().isNoContent());
+    public void shouldDeletePublisher() throws Exception {
+        String outputJson = mapper.writeValueAsString(publisherList);
+        mockMvc.perform(delete("/publisher/1")).andDo(print()).andExpect(status().isNoContent());
 
     }
-
 }
