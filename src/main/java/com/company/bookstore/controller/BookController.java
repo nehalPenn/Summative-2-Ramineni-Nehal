@@ -18,6 +18,9 @@ public class BookController {
     @Autowired
     BookRepository repo;
 
+    @Autowired
+    AuthorRepository authorRepository;
+
     //A POST route that creates a new book.
     @PostMapping("/book")
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,10 +50,21 @@ public class BookController {
 
     //A GET route that returns a specific book by id.
     @GetMapping("/book/{id}")
-    public Book getAuthorById(@PathVariable int id) {
+    public Book getBookById(@PathVariable int id) {
         Optional<Book> returnVal = repo.findById(id);
         if (returnVal.isPresent()) {
             return returnVal.get();
+        } else {
+            return null;
+        }
+    }
+
+    //A GET route that returns a specific book by author.
+    @GetMapping("/book/author/{id}")
+    public List<Book> getAuthorById(@PathVariable int id) {
+        List<Book> returnVal = repo.findByAuthorId(id);
+        if (returnVal.isEmpty() == false) {
+            return returnVal;
         } else {
             return null;
         }
