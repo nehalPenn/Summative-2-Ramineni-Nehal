@@ -153,7 +153,7 @@ public class PublisherControllerTest {
     @Test
     public void shouldDeletePublisher() throws Exception {
         String outputJson = mapper.writeValueAsString(publisherList);
-        mockMvc.perform(delete("/publisher/1")).andDo(print()).andExpect(status().isNoContent());
+        mockMvc.perform(delete("/publisher/4")).andDo(print()).andExpect(status().isNoContent());
 
     }
 }
