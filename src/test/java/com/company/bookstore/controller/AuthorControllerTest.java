@@ -108,7 +108,7 @@ public class AuthorControllerTest {
     //A DELETE route that deletes an existing author.
     @Test
     public void shouldDeleteAuthorById() throws Exception {
-        mockMvc.perform(delete("/author/1")).andDo(print()).andExpect(status().isNoContent());
+        mockMvc.perform(delete("/author/3")).andDo(print()).andExpect(status().isNoContent());
 
     }
 
