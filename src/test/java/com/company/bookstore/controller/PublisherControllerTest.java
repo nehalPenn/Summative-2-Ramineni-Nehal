@@ -68,7 +68,7 @@ public class PublisherControllerTest {
         String outputJson = mapper.writeValueAsString(publisherList);
 
         // ACT
-        mockMvc.perform(get("/publishers"))                // Perform the GET request
+        mockMvc.perform(get("/publisher"))                // Perform the GET request
                 .andDo(print())                          // Print results to console
                 .andExpect(status().isOk());              // ASSERT (status code is 200)
     }
@@ -78,7 +78,7 @@ public class PublisherControllerTest {
     public void shouldReturnPublisherbyId() throws Exception {
         String outputJson = mapper.writeValueAsString(publisherList);
         mockMvc
-                .perform(get("/publishers/1"))
+                .perform(get("/publisher/1"))
                 .andDo(print()).andExpect(status().isOk());
 
     }
@@ -107,7 +107,7 @@ public class PublisherControllerTest {
 
         String outputJson = mapper.writeValueAsString(pub_o);
         mockMvc.perform(
-                        post("/publishers")                            // Perform the POST request
+                        post("/publisher")                            // Perform the POST request
                                 .content(inputJson)                       // Set the request body
                                 .contentType(MediaType.APPLICATION_JSON)  // Tell the server it's in JSON format
                 )
@@ -142,7 +142,7 @@ public class PublisherControllerTest {
         String outputJson = mapper.writeValueAsString(pub_o);
 
         mockMvc.perform(
-                        put("/publishers/1")                            // Perform the PUT request
+                        put("/publisher")                            // Perform the PUT request
                                 .content(inputJson)                       // Set the request body
                                 .contentType(MediaType.APPLICATION_JSON)  // Tell the server it's in JSON format
                 )
@@ -153,7 +153,7 @@ public class PublisherControllerTest {
     @Test
     public void shouldDeletePublisher() throws Exception {
         String outputJson = mapper.writeValueAsString(publisherList);
-        mockMvc.perform(delete("/publishers/1")).andDo(print()).andExpect(status().isNoContent());
+        mockMvc.perform(delete("/publisher/1")).andDo(print()).andExpect(status().isNoContent());
 
     }
 }
