@@ -42,7 +42,7 @@ class BookControllerTest {
 
     // Testing POST /books/
     @Test
-    public void shouldReturnBook() throws Exception {
+    public void shouldCreateBook() throws Exception {
 
 
         Book book = new Book();
@@ -64,7 +64,7 @@ class BookControllerTest {
 
         String outputJson = mapper.writeValueAsString(book2);
 
-        mockMvc.perform(post("/books")
+        mockMvc.perform(post("/book")
                         .content(inputJson).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isCreated());
     }
@@ -81,7 +81,7 @@ class BookControllerTest {
         book.setPrice(12);
         book.setId(1);
 
-        mockMvc.perform(get("/books/1"))
+        mockMvc.perform(get("/book/1"))
                 .andDo(print())
                 .andExpect(status().isOk());
 
@@ -91,7 +91,7 @@ class BookControllerTest {
     @Test
     public void shouldReturnAllBooks() throws Exception {
 
-        mockMvc.perform(get("/books")).andDo(print()).andExpect(status().isOk());
+        mockMvc.perform(get("/book")).andDo(print()).andExpect(status().isOk());
 
     }
 
@@ -110,7 +110,7 @@ class BookControllerTest {
         String inputJson = mapper.writeValueAsString(book);
 
         mockMvc.perform(
-                        put("/books")
+                        put("/book")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -122,13 +122,13 @@ class BookControllerTest {
     // Testing DELETE /books/{id}
     @Test
     public void shouldDeleteBookById() throws Exception {
-        mockMvc.perform(delete("/books/1")).andDo(print()).andExpect(status().isNoContent());
+        mockMvc.perform(delete("/book/1")).andDo(print()).andExpect(status().isNoContent());
 
     }
 
     // Testing GET /books/author/{id}
     @Test
-    public void getReturnBookByAuthorId() throws Exception {
+    public void shouldReturnBookByAuthorId() throws Exception {
 
         Book book = new Book();
         book.setIsbn("3141593");
@@ -138,7 +138,7 @@ class BookControllerTest {
         book.setPrice(12);
         book.setId(1);
 
-        mockMvc.perform(get("/books/author/2"))
+        mockMvc.perform(get("/book/author/2"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
