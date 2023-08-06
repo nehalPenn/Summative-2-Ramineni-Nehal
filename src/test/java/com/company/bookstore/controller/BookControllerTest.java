@@ -122,7 +122,7 @@ class BookControllerTest {
     // Testing DELETE /books/{id}
     @Test
     public void shouldDeleteBookById() throws Exception {
-        mockMvc.perform(delete("/book/1")).andDo(print()).andExpect(status().isNoContent());
+        mockMvc.perform(delete("/book/4")).andDo(print()).andExpect(status().isNoContent());
 
     }
 
